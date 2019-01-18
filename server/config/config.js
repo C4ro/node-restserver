@@ -31,6 +31,12 @@ process.env.URLDB = urlDB;
 process.env.SEED = process.env.SEED || 'development-seed';
 
 // ================
+// Google client ID
+// ================
+
+process.env.CLIENT_ID = process.env.CLIENT_ID || '892678547391-0n34dnb76sh74chunjtqrba5285pp8u4.apps.googleusercontent.com';
+
+// ================
 // Token expiration
 // ================
 // 60 sec
