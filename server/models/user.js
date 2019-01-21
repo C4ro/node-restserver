@@ -43,6 +43,6 @@ let userSchema = new Schema({
 });
 
 userSchema.plugin(uniqueValidator, { message: '{PATH} must be unique' });
-userSchema.plugin(mongooseHidden, { hidden: { password: true } });
+userSchema.plugin(mongooseHidden, { hidden: { _id: false, password: true } });
 
 module.exports = mongoose.model('User', userSchema);

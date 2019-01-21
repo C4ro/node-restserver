@@ -20,8 +20,8 @@ let verifyToken = (req, res, next) => {
         }
 
         req.user = decoded.user;
-        next();
 
+        next();
     });
 
 };

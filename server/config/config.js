@@ -44,4 +44,4 @@ process.env.CLIENT_ID = process.env.CLIENT_ID || '892678547391-0n34dnb76sh74chun
 // 24 hrs
 // 30 days
 
-process.env.EXPIRATION_TOKEN = 60 * 60 * 24 * 30;
+process.env.EXPIRATION_TOKEN = '48h';

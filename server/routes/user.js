@@ -1,10 +1,14 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
-const { verifyToken, verifyADMIN_ROLE  } = require('../middlewares/authentication');
 const User = require('../models/user');
+const { verifyToken, verifyADMIN_ROLE  } = require('../middlewares/authentication');
 
 const app = express();
+
+// ===================
+// Show users per pages
+// ===================
 
 app.get('/user', verifyToken, (req, res) => {
 
@@ -25,7 +29,7 @@ app.get('/user', verifyToken, (req, res) => {
                 });
             }
 
-            User.count({ state: true }, (err, count) => {
+            User.countDocuments({ state: true }, (err, count) => {
 
                 res.json({
                     ok: true,
@@ -37,7 +41,12 @@ app.get('/user', verifyToken, (req, res) => {
         })
 })
 
+// ===================================
+// Create a new user (ADMIN_ROLE only)
+// ===================================
+
 app.post('/user', [verifyToken, verifyADMIN_ROLE], (req, res) => {
+
     let body = req.body;
 
     let user = new User({
@@ -54,14 +63,19 @@ app.post('/user', [verifyToken, verifyADMIN_ROLE], (req, res) => {
                 err
             });
         }
-        res.json({
+        res.status(201).json({
             ok: true,
             user: userDB
         })
     })
 })
 
+// =====================================
+// Update a user by id (ADMIN_ROLE only)
+// =====================================
+
 app.put('/user/:id', [verifyToken, verifyADMIN_ROLE], (req, res) => {
+
     let id = req.params.id;
     let body = _.pick(req.body, ['name', 'email', 'img', 'role', 'state']);
 
@@ -79,6 +93,10 @@ app.put('/user/:id', [verifyToken, verifyADMIN_ROLE], (req, res) => {
         });
     })
 })
+
+// =====================================
+// Delete a user by id (ADMIN_ROLE only)
+// =====================================
 
 app.delete('/user/:id', [verifyToken, verifyADMIN_ROLE], (req, res) => {
 
